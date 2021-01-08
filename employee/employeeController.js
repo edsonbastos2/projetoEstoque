@@ -19,7 +19,7 @@ router.post('/funcionario/save', (req, res) => {
             posto,
             setor
         }).then(() => {
-            res.redirect('/')
+            res.redirect('/admin/employees')
         })
     } else {
         res.redirect('/admin/funcionarios');
@@ -48,8 +48,43 @@ router.post('/employees/delete', (req, res) => {
             res.redirect('/admin/employees')
         }
     } else {
-        res.redirect('/admin/employess')
+        res.redirect('/admin/employees')
     }
-})
+});
 
+router.get('/admin/employees/edit/:id', (req, res) => {
+    let id = req.params.id;
+
+    if (isNaN(id)) {
+        res.redirect('/admin/employees')
+    }
+    employee.findByPk(id).then(employees => {
+        if (employees != undefined) {
+            res.render('admin/employee/edit', { employees })
+        } else {
+            res.redirect('/admin/employees')
+        }
+    }).catch(() => {
+        res.redirect('/admin/employees')
+    })
+});
+
+router.post('/admin/employees/update', (req, res) => {
+    let id = req.body.id;
+    let nome = req.body.nome;
+    let funcao = req.body.funcao;
+    let posto = req.body.posto;
+    let setor = req.body.setor;
+
+    employee.update({
+        nome,
+        funcao,
+        posto,
+        setor
+    }, {
+        where: { id: id }
+    }).then(() => {
+        res.redirect('/admin/employees')
+    })
+})
 module.exports = router;

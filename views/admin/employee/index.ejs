@@ -36,8 +36,9 @@
                                     <%=item.setor%>
                                 </td>
                                 <td style="display: flex; justify-content: space-around">
-                                    <button class="btn btn-warning">Editar</button>
-                                    <form action="/employees/delete" method="POST">
+                                    <a href="/admin/employees/edit/<%= item.id %>" class="btn btn-warning">Editar</a>
+                                    <form action="/employees/delete" method="POST"
+                                        onsubmit="confirmarDelete(event, this)">
                                         <input type="hidden" name="id" value="<%=item.id%>">
                                         <button class="btn btn-danger">Excluir</button>
                                     </form>
@@ -49,3 +50,16 @@
             </div>
     </body>
     <%- include('../../partials/footer')%>
+
+        <script>
+            function confirmarDelete(event, form) {
+                event.preventDefault();
+                let decision = confirm('Você tem certeza');
+
+                if (decision) {
+                    form.submit();
+                } else {
+                    console.log('Você desistiu')
+                }
+            }
+        </script>
