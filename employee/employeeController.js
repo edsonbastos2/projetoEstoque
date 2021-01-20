@@ -1,12 +1,13 @@
 const express = require('express');
+const adminAuthe = require('../middlewares/adminAuthe');
 const router = express.Router();
 const employee = require('./employeeModel');
 
-router.get('/admin/funcionarios', (req, res) => {
+router.get('/admin/funcionarios', adminAuthe, (req, res) => {
     res.render('admin/employee/employee');
 });
 
-router.post('/funcionario/save', (req, res) => {
+router.post('/funcionario/save', adminAuthe, (req, res) => {
     let nome = req.body.nome;
     let funcao = req.body.funcao;
     let posto = req.body.posto;
@@ -26,15 +27,15 @@ router.post('/funcionario/save', (req, res) => {
     }
 })
 
-router.get('/admin/employees', (req, res) => {
-    employee.findAll().then(employees => {
+router.get('/admin/employees', adminAuthe, (req, res) => {
+    employee.findAll({ order: [['nome', 'ASC']] }).then(employees => {
         res.render('admin/employee/index', {
             employees
         })
     })
 });
 
-router.post('/employees/delete', (req, res) => {
+router.post('/employees/delete', adminAuthe, (req, res) => {
     let id = req.body.id;
 
     if (id != undefined) {
@@ -52,7 +53,7 @@ router.post('/employees/delete', (req, res) => {
     }
 });
 
-router.get('/admin/employees/edit/:id', (req, res) => {
+router.get('/admin/employees/edit/:id', adminAuthe, (req, res) => {
     let id = req.params.id;
 
     if (isNaN(id)) {
@@ -69,7 +70,7 @@ router.get('/admin/employees/edit/:id', (req, res) => {
     })
 });
 
-router.post('/admin/employees/update', (req, res) => {
+router.post('/admin/employees/update', adminAuthe, (req, res) => {
     let id = req.body.id;
     let nome = req.body.nome;
     let funcao = req.body.funcao;

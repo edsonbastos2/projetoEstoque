@@ -1,0 +1,27 @@
+<%- include('./partials/header')%>
+    <%- include('./partials/homeNavbar')%>
+
+        <body>
+            <div class="container">
+                <h1>Página Descrição de Patrimônios</h1>
+                <% patrimonios.forEach( item=> {%>
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h4>
+                                <%= item.nome%>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <%= item.descricao%>
+                            </p>
+                            <p>Modelo: <%= item.modelo%>
+                            </p>
+                            <p>Tombamento: <%= item.tombamento%>
+                            </p>
+                        </div>
+                    </div>
+                    <%})%>
+            </div>
+        </body>
+        <%- include('./partials/footer')%>

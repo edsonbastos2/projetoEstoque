@@ -35,7 +35,7 @@
                                 <td>
                                     <%=item.setor%>
                                 </td>
-                                <td style="display: flex; justify-content: space-around">
+                                <td class="d-flex justify-content-around">
                                     <a href="/admin/employees/edit/<%= item.id %>" class="btn btn-warning">Editar</a>
                                     <form action="/employees/delete" method="POST"
                                         onsubmit="confirmarDelete(event, this)">

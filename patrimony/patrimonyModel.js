@@ -18,6 +18,10 @@ const patrimonyModel = connection.define('patrimony', {
     quantidade: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    descricao: {
+        type: Sequelize.TEXT,
+        allowNull: false
     }
 
 })
@@ -25,6 +29,6 @@ const patrimonyModel = connection.define('patrimony', {
 Employee.hasMany(patrimonyModel);
 patrimonyModel.belongsTo(Employee);
 
-//patrimonyModel.sync({ force: true })
+// patrimonyModel.sync({ force: true })
 
 module.exports = patrimonyModel;
