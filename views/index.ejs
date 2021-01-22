@@ -4,7 +4,8 @@
     <body>
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">Bem-vindo</h1>
+          <h1 class="display-6 rootH1"></h1>
+          <h3 class="dataDia"></h3>
           <p class="lead text-danger">Sistema de estoque em fase teste</p>
         </div>
       </div>
@@ -45,5 +46,28 @@
         </div>
       </div>
     </body>
+
+    <script>
+      let rootP = document.querySelector('.rootH1');
+      let dataDia = document.querySelector('.dataDia');
+      let data = new Date();
+      let hora = data.getHours()
+      dataDia.innerText = data.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+      function mostrarSaudacao(hora) {
+        let saudacao;
+        if (hora < 12) {
+          saudacao = 'Bom dia, tenha um bom trabalho'
+          return rootP.innerHTML = saudacao;
+        } else if (hora >= 12 && hora <= 17) {
+          saudacao = 'Boa Tarde, tenha um bom trabalho';
+          return rootP.innerHTML = saudacao;
+        } else if (hora >= 18 && hora <= 23) {
+          saudacao = 'Boa Noite, tenha um bom trabalho';
+          return rootP.innerHTML = saudacao;
+        }
+      }
+      mostrarSaudacao(hora)
+    </script>
 
     <%- include('./partials/footer')%>
